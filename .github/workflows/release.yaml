@@ -17,8 +17,13 @@ jobs:
           - aarch64-unknown-linux-musl
           - arm-unknown-linux-musleabi
           - arm-unknown-linux-musleabihf
+          - armv5-unknown-linux-musleabi
+          - armv5-unknown-linux-musleabihf
+          - armv6-unknown-linux-musleabi
+          - armv6-unknown-linux-musleabihf
           - armv7-unknown-linux-musleabi
           - armv7-unknown-linux-musleabihf
+          - i486-unknown-linux-musl
           - i586-unknown-linux-musl
           - i686-unknown-linux-musl
           - loongarch64-unknown-linux-musl
@@ -33,7 +38,9 @@ jobs:
           - mips64-unknown-linux-musl
           - or1k-unknown-linux-musl
           - powerpcle-unknown-linux-musl
+          - powerpcle-unknown-linux-muslsf
           - powerpc-unknown-linux-musl
+          - powerpc-unknown-linux-muslsf
           - powerpc64le-unknown-linux-musl
           - powerpc64-unknown-linux-musl
           - riscv32-unknown-linux-musl
@@ -41,6 +48,7 @@ jobs:
           - s390x-ibm-linux-musl
           - sh4-multilib-linux-musl
           - x86_64-unknown-linux-musl
+          - x86_64-core2-unknown-linux-musl
           - x86_64-w64-mingw32
           #- alpha-unknown-linux-musl
           #- sparc-unknown-linux-musl
