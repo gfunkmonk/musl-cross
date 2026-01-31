@@ -36,12 +36,12 @@ jobs:
           #- mips64el-unknown-linux-musl
           #- mips64-unknown-linux-musl
           #- or1k-unknown-linux-musl
-          - powerpcle-unknown-linux-musl
-          - powerpcle-unknown-linux-muslsf
-          - powerpc-unknown-linux-musl
-          - powerpc-unknown-linux-muslsf
-          - powerpc64le-unknown-linux-musl
-          - powerpc64-unknown-linux-musl
+          #- powerpcle-unknown-linux-musl
+          #- powerpcle-unknown-linux-muslsf
+          #- powerpc-unknown-linux-musl
+          #- powerpc-unknown-linux-muslsf
+          #- powerpc64le-unknown-linux-musl
+          #- powerpc64-unknown-linux-musl
           #- riscv32-unknown-linux-musl
           #- riscv64-unknown-linux-musl
           #- s390x-ibm-linux-musl
@@ -50,7 +50,7 @@ jobs:
           #- x86_64-core2-unknown-linux-musl
           #- x86_64-w64-mingw32
           #- alpha-unknown-linux-musl
-          #- sparc-unknown-linux-musl
+          - sparc-unknown-linux-musl
           #- sparc64-unknown-linux-musl
     steps:
       - name: Checkout
