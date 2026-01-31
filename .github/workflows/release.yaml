@@ -51,10 +51,50 @@ jobs:
         with:
           fetch-depth: 1
           submodules: true
+      - name: 🅲🅲🅰🅲🅷🅴 🅴🅽🆅🅸🆁🅾🅽🅼🅴🅽🆃 🆅🅰🆁🅸🅰🅱🅻🅴🆂
+        run: |
+          apt update -yq
+          apt install ccache -yq
+
+          cat >> $GITHUB_ENV << 'EOF'
+          CCACHE_SLOPPINESS=file_macro,locale,time_macros
+          CCACHE_NOHASHDIR=true
+          CCACHE_COMPRESS=1
+          CCACHE_COMPRESSLEVEL=6
+          CCACHE_DEPEND=1
+          CCACHE_FILE_CLONE=true
+          CCACHE_NOHARDLINK=true
+          CCACHE_INODECACHE=true
+          CCACHE_NORECACHE=true
+          CCACHE_NLEVELS=4
+          CCACHE_COMPILERCHECK=content
+          EOF
+
+          echo "CCACHE_NLEVELS=4" >> $GITHUB_ENV
+          # Setup CCACHE Dir
+          sudo mkdir -p /mnt/ccache
+          sudo chown -R $USER:$USER /mnt/ccache
+          echo "CCACHE_DIR=/mnt/ccache" >> $GITHUB_ENV
+          echo "CCACHE Dir Set!"
+          df -h
+          echo "CCACHE Environment set!"
+
+      - name: 🏎 🅴🅽🅰🅱🅻🅴 🅲🅲🅰🅲🅷🅴 🏁
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          create-symlink: 'true'
+          key: ${{ runner.os }}-ccache-${{ hashFiles('Makefile') }}
+          max-size: '10000MB'
+          restore-keys: |
+            ${{ runner.os }}-ccache-
+          verbose: 2
+          save: true
+
       - name: Build
         run: |
           sudo rm -rf /opt/*
           ./scripts/make ${{ matrix.target }}
+
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
@@ -62,6 +102,7 @@ jobs:
           path: ${{ matrix.target }}.tar.xz
           if-no-files-found: error
           retention-days: 1
+
       - name: Upload checksum
         uses: actions/upload-artifact@v4
         with:
