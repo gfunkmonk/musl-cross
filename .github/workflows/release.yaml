@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: true
       matrix:
@@ -48,19 +48,24 @@ jobs:
           - sh4-multilib-linux-musl
           - x86_64-unknown-linux-musl
           - x86_64-w64-mingw32
+          - i686-w64-mingw32
           #- alpha-unknown-linux-musl
           #- sparc-unknown-linux-musl
           #- sparc64-unknown-linux-musl
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 1
           submodules: true
       - name: 🅲🅲🅰🅲🅷🅴 🅴🅽🆅🅸🆁🅾🅽🅼🅴🅽🆃 🆅🅰🆁🅸🅰🅱🅻🅴🆂
         run: |
-          sudo apt update -yq
-          sudo apt install ccache -yq
+          #sudo apt update -yq
+          #sudo apt install ccache -yq
+
+          DEBIAN_FRONTEND=noninteractive sudo apt-get -y update
+          DEBIAN_FRONTEND=noninteractive sudo apt-get -y install apt-utils
+          DEBIAN_FRONTEND=noninteractive sudo apt-get -y install ccache
 
           cat >> $GITHUB_ENV << 'EOF'
           CCACHE_SLOPPINESS=file_macro,locale,time_macros
@@ -89,10 +94,10 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           create-symlink: 'true'
-          key: ${{ runner.os }}-ccache-${{ hashFiles('Makefile') }}
-          max-size: '10000MB'
+          key: ${{ runner.os }}-toolchain-build
           restore-keys: |
-            ${{ runner.os }}-ccache-
+            ${{ runner.os }}-toolchain-build-
+          max-size: '10000MB'
           verbose: 2
           save: true
 
@@ -102,7 +107,7 @@ jobs:
           ./scripts/make ${{ matrix.target }}
 
       - name: Upload package
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ matrix.target }}.tar.xz
           path: ${{ matrix.target }}.tar.xz
@@ -119,18 +124,18 @@ jobs:
 
   release:
     name: Release
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-slim
     needs:
       - build
     #if: github.event_name == 'release'
     if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 1
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           path: release
           pattern: "*.tar.*"
