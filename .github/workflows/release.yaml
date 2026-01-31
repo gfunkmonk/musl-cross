@@ -53,8 +53,8 @@ jobs:
           submodules: true
       - name: 🅲🅲🅰🅲🅷🅴 🅴🅽🆅🅸🆁🅾🅽🅼🅴🅽🆃 🆅🅰🆁🅸🅰🅱🅻🅴🆂
         run: |
-          apt update -yq
-          apt install ccache -yq
+          sudo apt update -yq
+          sudo apt install ccache -yq
 
           cat >> $GITHUB_ENV << 'EOF'
           CCACHE_SLOPPINESS=file_macro,locale,time_macros
