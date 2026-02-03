@@ -1,4 +1,4 @@
-name: Teste
+name: Test
 
 on:
   workflow_dispatch:
@@ -14,45 +14,45 @@ jobs:
       fail-fast: true
       matrix:
         target:
-          #- aarch64-unknown-linux-musl
-          #- arm-unknown-linux-musleabi
-          #- arm-unknown-linux-musleabihf
-          #- armv5-unknown-linux-musleabi
-          #- armv6-unknown-linux-musleabi
-          #- armv6-unknown-linux-musleabihf
-          #- armv7-unknown-linux-musleabi
-          #- armv7-unknown-linux-musleabihf
-          #- i486-unknown-linux-musl
-          #- i586-unknown-linux-musl
-          #- i686-unknown-linux-musl
-          #- loongarch64-unknown-linux-musl
-          #- m68k-unknown-linux-musl
-          #- microblazeel-xilinx-linux-musl
-          #- microblaze-xilinx-linux-musl
-          #- mipsel-unknown-linux-musl
-          #- mipsel-unknown-linux-muslsf
-          #- mips-unknown-linux-musl
-          #- mips-unknown-linux-muslsf
-          #- mips64el-unknown-linux-musl
-          #- mips64-unknown-linux-musl
-          #- or1k-unknown-linux-musl
-          #- powerpcle-unknown-linux-musl
-          #- powerpcle-unknown-linux-muslsf
-          #- powerpc-unknown-linux-musl
-          #- powerpc-unknown-linux-muslsf
-          #- powerpc64le-unknown-linux-musl
-          #- powerpc64-unknown-linux-musl
-          #- riscv32-unknown-linux-musl
-          #- riscv64-unknown-linux-musl
+          # - aarch64-unknown-linux-musl
+          # - arm-unknown-linux-musleabi
+          # - arm-unknown-linux-musleabihf
+          # - armv5-unknown-linux-musleabi
+          # - armv6-unknown-linux-musleabi
+          # - armv6-unknown-linux-musleabihf
+          # - armv7-unknown-linux-musleabi
+          # - armv7-unknown-linux-musleabihf
+          # - i486-unknown-linux-musl
+          # - i586-unknown-linux-musl
+          # - i686-unknown-linux-musl
+          # - loongarch64-unknown-linux-musl
+          # - m68k-unknown-linux-musl
+          # - microblazeel-xilinx-linux-musl
+          # - microblaze-xilinx-linux-musl
+          # - mipsel-unknown-linux-musl
+          # - mipsel-unknown-linux-muslsf
+          # - mips-unknown-linux-musl
+          # - mips-unknown-linux-muslsf
+          # - mips64el-unknown-linux-musl
+          # - mips64-unknown-linux-musl
+          # - or1k-unknown-linux-musl
+          # - powerpcle-unknown-linux-musl
+          # - powerpcle-unknown-linux-muslsf
+          # - powerpc-unknown-linux-musl
+          # - powerpc-unknown-linux-muslsf
+          # - powerpc64le-unknown-linux-musl
+          # - powerpc64-unknown-linux-musl
+          # - riscv32-unknown-linux-musl
+          # - riscv64-unknown-linux-musl
           - s390-ibm-linux-musl
-          #- s390x-ibm-linux-musl
-          #- sh4-multilib-linux-musl
-          #- x86_64-unknown-linux-musl
-          #- x86_64-w64-mingw32
-          #- i686-w64-mingw32
-          #- alpha-unknown-linux-musl
-          #- sparc-unknown-linux-musl
-          #- sparc64-unknown-linux-musl
+          # - s390x-ibm-linux-musl
+          # - sh4-multilib-linux-musl
+          # - x86_64-unknown-linux-musl
+          # - x86_64-w64-mingw32
+          # - i686-w64-mingw32
+          # - alpha-unknown-linux-musl
+          # - sparc-unknown-linux-musl
+          # - sparc64-unknown-linux-musl
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -61,9 +61,6 @@ jobs:
           submodules: true
       - name: 🅲🅲🅰🅲🅷🅴 🅴🅽🆅🅸🆁🅾🅽🅼🅴🅽🆃 🆅🅰🆁🅸🅰🅱🅻🅴🆂
         run: |
-          #sudo apt update -yq
-          #sudo apt install ccache -yq
-
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y update
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y install apt-utils
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y install ccache
@@ -82,7 +79,6 @@ jobs:
           CCACHE_COMPILERCHECK=content
           EOF
 
-          echo "CCACHE_NLEVELS=4" >> $GITHUB_ENV
           # Setup CCACHE Dir
           sudo mkdir -p /mnt/ccache
           sudo chown -R $USER:$USER /mnt/ccache
@@ -116,10 +112,9 @@ jobs:
           retention-days: 1
 
       - name: Upload checksum
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ matrix.target }}.tar.xz.sha256
           path: ${{ matrix.target }}.tar.xz.sha256
           if-no-files-found: error
           retention-days: 1
-

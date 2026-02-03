@@ -15,8 +15,8 @@ jobs:
       matrix:
         target:
           - aarch64-unknown-linux-musl
-          #- arm-unknown-linux-musleabi
-          #- arm-unknown-linux-musleabihf
+          # - arm-unknown-linux-musleabi
+          # - arm-unknown-linux-musleabihf
           - armv5-unknown-linux-musleabi
           - armv6-unknown-linux-musleabi
           - armv6-unknown-linux-musleabihf
@@ -47,11 +47,11 @@ jobs:
           - s390x-ibm-linux-musl
           - sh4-multilib-linux-musl
           - x86_64-unknown-linux-musl
-          #- x86_64-w64-mingw32
-          #- i686-w64-mingw32
-          #- alpha-unknown-linux-musl
-          #- sparc-unknown-linux-musl
-          #- sparc64-unknown-linux-musl
+          # - x86_64-w64-mingw32
+          # - i686-w64-mingw32
+          # - alpha-unknown-linux-musl
+          # - sparc-unknown-linux-musl
+          # - sparc64-unknown-linux-musl
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -60,9 +60,6 @@ jobs:
           submodules: true
       - name: 🅲🅲🅰🅲🅷🅴 🅴🅽🆅🅸🆁🅾🅽🅼🅴🅽🆃 🆅🅰🆁🅸🅰🅱🅻🅴🆂
         run: |
-          #sudo apt update -yq
-          #sudo apt install ccache -yq
-
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y update
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y install apt-utils
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y install ccache
@@ -81,7 +78,6 @@ jobs:
           CCACHE_COMPILERCHECK=content
           EOF
 
-          echo "CCACHE_NLEVELS=4" >> $GITHUB_ENV
           # Setup CCACHE Dir
           sudo mkdir -p /mnt/ccache
           sudo chown -R $USER:$USER /mnt/ccache
@@ -115,7 +111,7 @@ jobs:
           retention-days: 1
 
       - name: Upload checksum
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ matrix.target }}.tar.xz.sha256
           path: ${{ matrix.target }}.tar.xz.sha256
@@ -128,7 +124,6 @@ jobs:
     needs:
       - build
     if: github.event_name == 'release'
-    #if: startsWith(github.ref, 'refs/tags/')
     steps:
       - name: Checkout
         uses: actions/checkout@v6
