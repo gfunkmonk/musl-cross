@@ -290,7 +290,7 @@ CT_LINUX_V_6_18=y
 # CT_LINUX_V_6_15 is not set
 # CT_LINUX_V_6_14 is not set
 # CT_LINUX_V_6_13 is not set
-# CT_LINUX_V_6_12 is not set
+# CT_LINUX_V_5_19 is not set
 # CT_LINUX_V_6_11 is not set
 # CT_LINUX_V_6_10 is not set
 # CT_LINUX_V_6_9 is not set
@@ -316,7 +316,7 @@ CT_LINUX_V_6_18=y
 # CT_LINUX_V_5_9 is not set
 # CT_LINUX_V_5_8 is not set
 # CT_LINUX_V_5_7 is not set
-# CT_LINUX_V_6_12 is not set
+# CT_LINUX_V_5_19 is not set
 # CT_LINUX_V_4_20 is not set
 # CT_LINUX_V_4_19 is not set
 # CT_LINUX_V_4_18 is not set
@@ -881,3 +881,5 @@ CT_ALL_COMP_TOOLS_CHOICES="AUTOCONF AUTOMAKE BISON DTC LIBTOOL M4 MAKE"
 #
 # CT_TEST_SUITE_GCC is not set
 # end of Test suite
+CT_GCC_V_14=y
+CT_BINUTILS_V_2_44=y
