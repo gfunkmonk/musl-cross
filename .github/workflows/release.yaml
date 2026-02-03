@@ -15,8 +15,8 @@ jobs:
       matrix:
         target:
           - aarch64-unknown-linux-musl
-          - arm-unknown-linux-musleabi
-          - arm-unknown-linux-musleabihf
+          #- arm-unknown-linux-musleabi
+          #- arm-unknown-linux-musleabihf
           - armv5-unknown-linux-musleabi
           - armv6-unknown-linux-musleabi
           - armv6-unknown-linux-musleabihf
@@ -47,8 +47,8 @@ jobs:
           - s390x-ibm-linux-musl
           - sh4-multilib-linux-musl
           - x86_64-unknown-linux-musl
-          - x86_64-w64-mingw32
-          - i686-w64-mingw32
+          #- x86_64-w64-mingw32
+          #- i686-w64-mingw32
           #- alpha-unknown-linux-musl
           #- sparc-unknown-linux-musl
           #- sparc64-unknown-linux-musl
