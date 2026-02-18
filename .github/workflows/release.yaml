@@ -22,6 +22,7 @@ jobs:
           - armv6-unknown-linux-musleabihf
           - armv7-unknown-linux-musleabi
           - armv7-unknown-linux-musleabihf
+          - i386-unknown-linux-musl
           - i486-unknown-linux-musl
           - i586-unknown-linux-musl
           - i686-unknown-linux-musl
@@ -47,6 +48,9 @@ jobs:
           - s390x-ibm-linux-musl
           - sh4-multilib-linux-musl
           - x86_64-unknown-linux-musl
+          - core2-unknown-linux-musl
+          - znver2-unknown-linux-musl
+          - loongarch-unknown-linux-musl
           # - x86_64-w64-mingw32
           # - i686-w64-mingw32
           # - alpha-unknown-linux-musl
