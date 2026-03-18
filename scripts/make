@@ -60,6 +60,9 @@ popd
 rm -rf build
 mkdir -p build
 cp targets/"${TARGET}"/config build/.config
+# Configure tarballs directory for download caching
+echo 'CT_LOCAL_TARBALLS_DIR="/mnt/tarballs"' >> build/.config
+echo 'CT_SAVE_TARBALLS=y' >> build/.config
 pushd build
 /opt/ct-ng/bin/ct-ng olddefconfig
 /opt/ct-ng/bin/ct-ng build
