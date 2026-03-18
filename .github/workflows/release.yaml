@@ -48,9 +48,6 @@ jobs:
           - s390x-ibm-linux-musl
           - sh4-multilib-linux-musl
           - x86_64-unknown-linux-musl
-          - core2-unknown-linux-musl
-          - znver2-unknown-linux-musl
-          - loongarch-unknown-linux-musl
           # - x86_64-w64-mingw32
           # - i686-w64-mingw32
           # - alpha-unknown-linux-musl
