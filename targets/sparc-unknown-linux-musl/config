@@ -290,7 +290,7 @@ CT_LINUX_V_6_18=y
 # CT_LINUX_V_6_15 is not set
 # CT_LINUX_V_6_14 is not set
 # CT_LINUX_V_6_13 is not set
-# CT_LINUX_V_6_12 is not set
+# CT_LINUX_V_6_18 is not set
 # CT_LINUX_V_6_11 is not set
 # CT_LINUX_V_6_10 is not set
 # CT_LINUX_V_6_9 is not set
@@ -303,7 +303,7 @@ CT_LINUX_V_6_18=y
 # CT_LINUX_V_6_2 is not set
 # CT_LINUX_V_6_1 is not set
 # CT_LINUX_V_6_0 is not set
-# CT_LINUX_V_6_12 is not set
+# CT_LINUX_V_6_18 is not set
 # CT_LINUX_V_5_18 is not set
 # CT_LINUX_V_5_17 is not set
 # CT_LINUX_V_5_16 is not set
@@ -316,7 +316,7 @@ CT_LINUX_V_6_18=y
 # CT_LINUX_V_5_9 is not set
 # CT_LINUX_V_5_8 is not set
 # CT_LINUX_V_5_7 is not set
-# CT_LINUX_V_6_12 is not set
+# CT_LINUX_V_6_18 is not set
 # CT_LINUX_V_4_20 is not set
 # CT_LINUX_V_4_19 is not set
 # CT_LINUX_V_4_18 is not set
@@ -395,8 +395,8 @@ CT_BINUTILS_PATCH_GLOBAL=y
 # CT_BINUTILS_PATCH_LOCAL_BUNDLED is not set
 # CT_BINUTILS_PATCH_NONE is not set
 CT_BINUTILS_PATCH_ORDER="global"
-# CT_BINUTILS_V_2_45 is not set
-# CT_BINUTILS_V_2_45 is not set
+# CT_BINUTILS_V_2_46 is not set
+# CT_BINUTILS_V_2_46 is not set
 CT_BINUTILS_V_2_43=y
 # CT_BINUTILS_V_2_42 is not set
 # CT_BINUTILS_V_2_41 is not set
@@ -882,4 +882,4 @@ CT_ALL_COMP_TOOLS_CHOICES="AUTOCONF AUTOMAKE BISON DTC LIBTOOL M4 MAKE"
 # CT_TEST_SUITE_GCC is not set
 # end of Test suite
 CT_GCC_V_15=y
-CT_BINUTILS_V_2_45=y
+CT_BINUTILS_V_2_46=y
