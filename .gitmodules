@@ -1,4 +1,4 @@
 [submodule "builder"]
 	path = builder
-	url = https://github.com/gfunkmonk/musl-cross
-	branch = main
+	url = https://github.com/gfunkmonk/crosstool-ng/
+	branch = master
