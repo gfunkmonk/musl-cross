@@ -102,8 +102,8 @@ jobs:
           verbose: 2
           save: true
 
-      - name: 📦 Cache downloads
-        uses: actions/cache@v4
+      - name: 📦 Restore tarballs cache
+        uses: actions/cache/restore@v4
         with:
           path: /mnt/tarballs
           key: tarballs-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles(format('targets/{0}/config', matrix.target)) }}
@@ -115,6 +115,13 @@ jobs:
         run: |
           sudo rm -rf /opt/*
           ./scripts/make ${{ matrix.target }}
+
+      - name: 💾 Save tarballs cache
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: /mnt/tarballs
+          key: tarballs-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles(format('targets/{0}/config', matrix.target)) }}
 
       - name: Upload package
         uses: actions/upload-artifact@v7
