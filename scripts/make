@@ -2,7 +2,18 @@
 
 set -e
 
+if [[ $# -lt 1 || -z "$1" ]]; then
+    echo "Usage: $0 <target>" >&2
+    echo "Example: $0 x86_64-unknown-linux-musl" >&2
+    exit 1
+fi
+
 TARGET=$1
+
+if [[ ! -d "targets/${TARGET}" ]]; then
+    echo "Error: target '${TARGET}' not found in targets/" >&2
+    exit 1
+fi
 
 # packages
 sudo apt-get update
