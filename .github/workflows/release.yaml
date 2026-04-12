@@ -1,11 +1,35 @@
 name: Release
-
-on:
+'on':
   workflow_dispatch:
-  release:
-    types:
-      - published
-
+    inputs:
+      freespace:
+        description: Run F̳r̳e̳e̳ ̳D̳i̳s̳k̳ ̳S̳p̳a̳c̳e̳
+        required: true
+        type: boolean
+        default: false
+      swapspace:
+        description: Add Swap ̳S̳p̳a̳c̳e̳
+        required: true
+        type: boolean
+        default: false
+      sshserver:
+        description: Run SSH Server before build
+        required: true
+        type: boolean
+        default: false
+      make_release:
+        description: GitHub Release?
+        type: boolean
+        default: false
+      release_name:
+        description: Release name?
+        type: string
+        default: ''
+concurrency:
+  group: '${{ github.workflow }}-${{ github.ref }}'
+  cancel-in-progress: true
+permissions:
+  contents: read
 jobs:
   build:
     name: Build
@@ -50,12 +74,33 @@ jobs:
           - sh4-multilib-linux-musl
           - x86_64-unknown-linux-musl
     steps:
+      - if: '${{ inputs.freespace }}'
+        name: Free Up Disk Space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          swap-storage: false
+          large-packages: true
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: false
+          docker-images: true
+      - if: '${{ inputs.swapspace }}'
+        name: Add Swap Space for Build
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 3
       - name: Checkout
         uses: actions/checkout@v6
         with:
           fetch-depth: 1
           submodules: true
-      - name: 🅲🅲🅰🅲🅷🅴 🅴🅽🆅🅸🆁🅾🅽🅼🅴🅽🆃 🆅🅰🆁🅸🅰🅱🅻🅴🆂
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          submodules: true
+      - name: "\U0001F172\U0001F172\U0001F170\U0001F172\U0001F177\U0001F174 \U0001F174\U0001F17D\U0001F185\U0001F178\U0001F181\U0001F17E\U0001F17D\U0001F17C\U0001F174\U0001F17D\U0001F183 \U0001F185\U0001F170\U0001F181\U0001F178\U0001F170\U0001F171\U0001F17B\U0001F174\U0001F182"
         run: |
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y update
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y install apt-utils
@@ -85,61 +130,64 @@ jobs:
           sudo chown -R $USER:$USER /mnt/tarballs
           df -h
           echo "CCACHE Environment set!"
-
-      - name: 🏎 🅴🅽🅰🅱🅻🅴 🅲🅲🅰🅲🅷🅴 🏁
+      - name: "\U0001F3CE \U0001F174\U0001F17D\U0001F170\U0001F171\U0001F17B\U0001F174 \U0001F172\U0001F172\U0001F170\U0001F172\U0001F177\U0001F174 \U0001F3C1"
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           create-symlink: 'true'
-          key: ccache-${{ runner.os }}-${{ matrix.target }}
+          key: 'ccache-${{ runner.os }}-${{ matrix.target }}'
           restore-keys: |
             ccache-${{ runner.os }}-
-          max-size: '5000MB'
+          max-size: 5000MB
           verbose: 2
           save: true
-
-      - name: 📦 Restore tarballs cache
+      - name: "\U0001F4E6 Restore tarballs cache"
         uses: actions/cache/restore@v5
         with:
           path: /mnt/tarballs
-          key: tarballs-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles(format('targets/{0}/config', matrix.target)) }}
+          key: >-
+            tarballs-${{ runner.os }}-${{ matrix.target }}-${{
+            hashFiles(format('targets/{0}/config', matrix.target)) }}
           restore-keys: |
             tarballs-${{ runner.os }}-${{ matrix.target }}-
             tarballs-${{ runner.os }}-
-
+      - if: '${{ inputs.sshserver }}'
+        name: SSH Server-ing
+        uses: valeriangalliat/action-sshd-cloudflared@v4
       - name: Build
         run: |
           sudo rm -rf /opt/*
           ./scripts/make ${{ matrix.target }}
-
-      - name: 💾 Save tarballs cache
+      - name: "\U0001F4BE Save tarballs cache"
         uses: actions/cache/save@v5
         if: always()
         with:
           path: /mnt/tarballs
-          key: tarballs-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles(format('targets/{0}/config', matrix.target)) }}
-
+          key: >-
+            tarballs-${{ runner.os }}-${{ matrix.target }}-${{
+            hashFiles(format('targets/{0}/config', matrix.target)) }}
       - name: Upload package
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ matrix.target }}.tar.xz
-          path: ${{ matrix.target }}.tar.xz
+          name: '${{ matrix.target }}.tar.xz'
+          path: '${{ matrix.target }}.tar.xz'
           if-no-files-found: error
           retention-days: 1
-
       - name: Upload checksum
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ matrix.target }}.tar.xz.sha256
-          path: ${{ matrix.target }}.tar.xz.sha256
+          name: '${{ matrix.target }}.tar.xz.sha256'
+          path: '${{ matrix.target }}.tar.xz.sha256'
           if-no-files-found: error
           retention-days: 1
-
   release:
     name: Release
     runs-on: ubuntu-slim
     needs:
       - build
-    if: github.event_name == 'release'
+    if: |
+      !cancelled() && github.event.inputs.make_release == 'true'
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -149,7 +197,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           path: release
-          pattern: "*.tar.*"
+          pattern: '*.tar.*'
           merge-multiple: true
       - name: Generate checksums
         run: |
@@ -158,11 +206,22 @@ jobs:
           for i in release/*.sha256; do
             echo "| $(basename $i .sha256) | $(cat $i) |" >> RELEASE.md
           done
-      - name: Upload artifacts
+      - if: '${{ inputs.release_name != '''' && inputs.make_release }}'
+        name: Create Release
+        uses: xiechangan123/action-gh-release@master
+        with:
+          name: '${{ inputs.release_name }}'
+          tag_name: '${{ inputs.release_name }}'
+          prerelease: false
+          draft: false
+          generate_release_notes: false
+          make_latest: false
+          files: release/*-*-*.tar.*
+          body_path: RELEASE.md
+      - name: Finalize Release
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
         run: |
-          for i in release/*.tar.xz; do
-            gh release upload ${{ github.event.release.tag_name }} $i $i.sha256
-          done
-          gh release edit ${{ github.event.release.tag_name }} -F RELEASE.md
+          # The action-gh-release step above handles most files,
+          # but this ensures the body/notes are updated correctly.
+          gh release edit "${{ inputs.release_name }}" --notes-file RELEASE.md
