@@ -40,8 +40,6 @@ This is a simple, lightweight project for making cross-compilation toolchain wit
 | s390-ibm-linux-musl              | 6.18   | 2.46     | 15.2.0 | 1.2.6 | 2.40.4 |
 | s390x-ibm-linux-musl             | 6.18   | 2.46     | 15.2.0 | 1.2.6 | 2.40.4 |
 | sh4-multilib-linux-musl          | 6.18   | 2.46     | 15.2.0 | 1.2.6 | 2.40.4 |
-| sparc-unknown-linux-musl         | 6.18   | 2.46     | 15.2.0 | 1.2.6 | N/A    |
-| sparc64-unknown-linux-musl       | 6.18   | 2.46     | 15.2.0 | 1.2.6 | N/A    |
 | x86_64-unknown-linux-musl        | 6.18   | 2.46     | 15.2.0 | 1.2.6 | 2.40.4 |
 
 ## How to use
