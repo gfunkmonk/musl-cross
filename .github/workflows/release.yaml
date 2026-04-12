@@ -11,7 +11,7 @@ jobs:
     name: Build
     runs-on: ubuntu-24.04
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         target:
           - aarch64-unknown-linux-musl
@@ -45,6 +45,7 @@ jobs:
           - powerpc64-unknown-linux-musl
           - riscv32-unknown-linux-musl
           - riscv64-unknown-linux-musl
+          - s390-ibm-linux-musl
           - s390x-ibm-linux-musl
           - sh4-multilib-linux-musl
           - x86_64-unknown-linux-musl
@@ -70,14 +71,13 @@ jobs:
           CCACHE_NOHASHDIR=true
           CCACHE_COMPRESS=1
           CCACHE_COMPRESSLEVEL=6
-          CCACHE_DEPEND=1
+          CCACHE_DEPEND=true
           CCACHE_NOFILECLONE=true
           CCACHE_NOHARDLINK=true
           CCACHE_INODECACHE=true
           CCACHE_NLEVELS=4
           CCACHE_COMPILERCHECK=content
           CCACHE_DIRECT=true
-          CCACHE_DEPEND=true
           EOF
 
           # Setup CCACHE Dir
