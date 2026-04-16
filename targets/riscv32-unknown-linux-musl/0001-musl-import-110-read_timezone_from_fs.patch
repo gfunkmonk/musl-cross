@@ -7,15 +7,15 @@ Subject: [PATCH] musl: import 110-read_timezone_from_fs.patch from OpenWrt
 From:
 https://github.com/openwrt/openwrt/blob/main/toolchain/musl/patches/110-read_timezone_from_fs.patch
 ---
- .../1.2.5/110-read_timezone_from_fs.patch     | 28 +++++++++++++++++++
+ .../1.2.6/110-read_timezone_from_fs.patch     | 28 +++++++++++++++++++
  1 file changed, 28 insertions(+)
- create mode 100644 packages/musl/1.2.5/110-read_timezone_from_fs.patch
+ create mode 100644 packages/musl/1.2.6/110-read_timezone_from_fs.patch
 
-diff --git a/packages/musl/1.2.5/110-read_timezone_from_fs.patch b/packages/musl/1.2.5/110-read_timezone_from_fs.patch
+diff --git a/packages/musl/1.2.6/110-read_timezone_from_fs.patch b/packages/musl/1.2.6/110-read_timezone_from_fs.patch
 new file mode 100644
 index 0000000..e1d0f3a
 --- /dev/null
-+++ b/packages/musl/1.2.5/110-read_timezone_from_fs.patch
++++ b/packages/musl/1.2.6/110-read_timezone_from_fs.patch
 @@ -0,0 +1,28 @@
 +--- a/src/time/__tz.c
 ++++ b/src/time/__tz.c
