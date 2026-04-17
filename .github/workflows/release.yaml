@@ -70,7 +70,7 @@ jobs:
           - powerpc64-unknown-linux-musl
           - riscv32-unknown-linux-musl
           - riscv64-unknown-linux-musl
-          - s390-ibm-linux-musl
+          #- s390-ibm-linux-musl
           - s390x-ibm-linux-musl
           - sh4-multilib-linux-musl
           - x86_64-unknown-linux-musl
