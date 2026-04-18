@@ -44,7 +44,7 @@ sudo apt-get install -y --no-install-recommends \
   unzip \
   wget \
   xz-utils \
-  zstd 
+  libzstd-dev
 
 # patch
 pushd builder
