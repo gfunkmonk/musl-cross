@@ -83,5 +83,5 @@ popd
 # tarball
 sudo mv /opt/x-tools/"${TARGET}" .
 sudo chown -R root:root "${TARGET}"
-sudo tar -cJvf "${TARGET}".tar.xz "${TARGET}"
+env XZ_OPT="-T0" sudo tar -cJvf "${TARGET}".tar.xz "${TARGET}"
 sudo sha256sum "${TARGET}".tar.xz | awk '{ print $1 }' > "${TARGET}".tar.xz.sha256
