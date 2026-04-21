@@ -1,0 +1,119 @@
+name: SSH
+'on':
+  workflow_dispatch:
+    inputs:
+      freespace:
+        description: Free Up Disk Space
+        required: true
+        type: boolean
+        default: false
+      swapspace:
+        description: Add Swap ̳Space
+        required: true
+        type: boolean
+        default: false
+      swapsize:
+        description: Swap Size (in gb)
+        type: choice
+        required: false
+        options: [3, 5, 10]
+        default: 5
+      target_build:
+        description: Target?
+        type: choice
+        required: true
+        options: [ aarch64-unknown-linux-musl, aarch64_be-unknown-linux-musl, arm-unknown-linux-musleabi, arm-unknown-linux-musleabihf, armv5-unknown-linux-musleabi, armv6-unknown-linux-musleabi, armv6-unknown-linux-musleabihf, armv7-unknown-linux-musleabi, armv7-unknown-linux-musleabihf, i386-unknown-linux-musl, i486-unknown-linux-musl, i586-unknown-linux-musl, i686-unknown-linux-musl, loongarch64-unknown-linux-musl, m68k-unknown-linux-musl, microblazeel-xilinx-linux-musl, microblaze-xilinx-linux-musl, mipsel-unknown-linux-musl, mipsel-unknown-linux-muslsf, mips-unknown-linux-musl, mips-unknown-linux-muslsf, mips64el-unknown-linux-musl, mips64-unknown-linux-musl, or1k-unknown-linux-musl, powerpcle-unknown-linux-musl, powerpcle-unknown-linux-muslsf, powerpc-unknown-linux-musl, powerpc-unknown-linux-muslsf, powerpc64le-unknown-linux-musl, powerpc64-unknown-linux-musl, riscv32-unknown-linux-musl, riscv64-unknown-linux-musl, s390x-ibm-linux-musl, sh4-multilib-linux-musl, x86_64-unknown-linux-musl ]
+concurrency:
+  group: '${{ github.workflow }}-${{ github.ref }}'
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - '${{ inputs.target_build }}'
+    steps:
+      - if: '${{ inputs.freespace }}'
+        name: Free Up Disk Space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          swap-storage: false
+          large-packages: true
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: false
+          docker-images: true
+      - if: '${{ inputs.swapspace }}'
+        name: Add Swap Space for Build
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: '${{ inputs.swapsize }}'
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          submodules: true
+      - name: CCACHE Shit
+        run: |
+          DEBIAN_FRONTEND=noninteractive sudo apt-get -y update
+          DEBIAN_FRONTEND=noninteractive sudo apt-get -y install apt-utils ccache ca-certificates gpg wget zstd
+
+          cat >> $GITHUB_ENV << 'EOF'
+          CCACHE_SLOPPINESS=file_macro,locale,time_macros
+          CCACHE_NOHASHDIR=true
+          CCACHE_COMPRESS=true
+          CCACHE_COMPRESSLEVEL=16
+          CCACHE_NOFILECLONE=true
+          CCACHE_NOHARDLINK=true
+          CCACHE_INODECACHE=true
+          CCACHE_NLEVELS=4
+          CCACHE_COMPILERCHECK=content
+          CCACHE_DEPEND=true
+          EOF
+
+          # Setup CCACHE Dir
+          sudo mkdir -p /mnt/ccache
+          sudo chown -R $USER:$USER /mnt/ccache
+          echo "CCACHE_DIR=/mnt/ccache" >> $GITHUB_ENV
+          echo "CCACHE Dir Set!"
+          # Setup tarballs dir for download caching
+          #sudo mkdir -p /mnt/tarballs
+          #sudo chown -R $USER:$USER /mnt/tarballs
+          df -h
+          echo "CCACHE Environment set!"
+      - name: Enable the CCACHE
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          create-symlink: 'true'
+          key: 'ccache-${{ runner.os }}-${{ matrix.target }}'
+          restore-keys: |
+            ccache-${{ runner.os }}-
+          max-size: 5000MB
+          verbose: 2
+          save: true
+      #- name: Restore tarballs cache
+      #  uses: actions/cache/restore@v5
+      #  with:
+      #    path: /mnt/tarballs
+      #    key: >-
+      #      tarballs-${{ runner.os }}-${{ matrix.target }}-${{
+      #      hashFiles(format('targets/{0}/config', matrix.target)) }}
+      #    restore-keys: |
+      #      tarballs-${{ runner.os }}-${{ matrix.target }}-
+      #      tarballs-${{ runner.os }}-
+      - name: SSH Server-ing
+        uses: valeriangalliat/action-sshd-cloudflared@v4
+      #- name: Save tarballs cache
+      #  uses: actions/cache/save@v5
+      #  if: always()
+      #  with:
+      #    path: /mnt/tarballs
+      #    key: >-
+      #      tarballs-${{ runner.os }}-${{ matrix.target }}-${{
+      #      hashFiles(format('targets/{0}/config', matrix.target)) }}
