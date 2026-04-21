@@ -75,6 +75,12 @@ cp targets/"${TARGET}"/config build/.config
 # Configure tarballs directory for download caching
 echo 'CT_LOCAL_TARBALLS_DIR="/mnt/tarballs"' >> build/.config
 echo 'CT_SAVE_TARBALLS=y' >> build/.config
+case "${TARGET}" in
+    or1k-*|microblaze*|microblazeel*)
+        sed -i 's/^CT_LINKER_MOLD=y/# CT_LINKER_MOLD is not set/' build/.config
+        echo "Disabled mold for ${TARGET} (unsupported arch)"
+        ;;
+esac
 pushd build
 /opt/ct-ng/bin/ct-ng olddefconfig
 /opt/ct-ng/bin/ct-ng build
