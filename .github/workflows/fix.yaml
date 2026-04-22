@@ -1,4 +1,4 @@
-name: Fix
+ame: Fix
 'on':
   workflow_dispatch:
     inputs:
@@ -65,8 +65,8 @@ jobs:
           #- mipsel-unknown-linux-muslsf
           #- mips-unknown-linux-musl
           #- mips-unknown-linux-muslsf
-          - mips64el-unknown-linux-musl
-          - mips64-unknown-linux-musl
+          #- mips64el-unknown-linux-musl
+          #- mips64-unknown-linux-musl
           #- or1k-unknown-linux-musl
           #- powerpcle-unknown-linux-musl
           #- powerpcle-unknown-linux-muslsf
