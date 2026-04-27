@@ -8,7 +8,7 @@ name: SSH
         type: boolean
         default: false
       swapspace:
-        description: Add Swap ̳Space
+        description: Add Swap Space
         required: true
         type: boolean
         default: false
@@ -59,7 +59,7 @@ jobs:
         with:
           fetch-depth: 1
           submodules: true
-      - name: CCACHE Shit
+      - name: Setup ccache
         run: |
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y update
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y install apt-utils ccache ca-certificates gpg wget zstd

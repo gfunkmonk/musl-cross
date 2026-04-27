@@ -1,4 +1,4 @@
-ame: Fix
+name: Fix
 'on':
   workflow_dispatch:
     inputs:
@@ -76,7 +76,6 @@ jobs:
           #- powerpc64-unknown-linux-musl
           #- riscv32-unknown-linux-musl
           #- riscv64-unknown-linux-musl
-          #- s390-ibm-linux-musl
           #- s390x-ibm-linux-musl
           #- sh4-multilib-linux-musl
           #- x86_64-unknown-linux-musl
@@ -102,7 +101,7 @@ jobs:
         with:
           fetch-depth: 1
           submodules: true
-      - name: CCACHE Shit
+      - name: Setup ccache
         run: |
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y update
           DEBIAN_FRONTEND=noninteractive sudo apt-get -y install apt-utils ccache ca-certificates gpg wget zstd
