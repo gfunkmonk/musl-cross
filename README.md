@@ -42,16 +42,6 @@ This is a simple, lightweight project for making cross-compilation toolchain wit
 | sh4-multilib-linux-musl          | 6.18.23   | 2.46     | 15.2.0 | 1.2.6 | 2.41.0 |
 | x86_64-unknown-linux-musl        | 6.18.23   | 2.46     | 15.2.0 | 1.2.6 | 2.41.0 |
 
-### Raspberry Pi targets
-
-| Target                           | Kernel | Binutils | GCC    | Musl  | Mold   |
-|----------------------------------|--------|----------|--------|-------|--------|
-| aarch64-rpi3-linux-musl          | 6.18.23   | 2.46     | 15.2.0 | 1.2.6 | 2.41.0 |
-| aarch64-rpi4-linux-musl          | 6.18.23   | 2.46     | 15.2.0 | 1.2.6 | 2.41.0 |
-| armv7-rpi2-linux-musleabihf      | 6.18.23   | 2.46     | 15.2.0 | 1.2.6 | 2.41.0 |
-| armv8-rpi3-linux-musleabihf      | 6.18.23   | 2.46     | 15.2.0 | 1.2.6 | 2.41.0 |
-| armv8-rpi4-linux-musleabihf      | 6.18.23   | 2.46     | 15.2.0 | 1.2.6 | 2.41.0 |
-
 ## How to use
 
 Download the tarball from the [release page](https://github.com/cross-tools/musl-cross/releases) and extract it to `/opt/x-tools`:
