@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eo pipefail
 
 if [[ $# -lt 1 || -z "$1" ]]; then
     echo "Usage: $0 <target>" >&2
@@ -16,8 +16,8 @@ if [[ ! -d "targets/${TARGET}" ]]; then
 fi
 
 # packages
-sudo apt-get update
-sudo apt-get install -y --no-install-recommends \
+DEBIAN_FRONTEND=noninteractive sudo apt-get update
+DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends \
   automake \
   bison \
   bzip2 \
@@ -73,10 +73,12 @@ rm -rf build
 mkdir -p build
 cp targets/"${TARGET}"/config build/.config
 # Configure tarballs directory for download caching
+sudo mkdir -p /mnt/tarballs
+sudo chown -R "$(id -u):$(id -g)" /mnt/tarballs
 echo 'CT_LOCAL_TARBALLS_DIR="/mnt/tarballs"' >> build/.config
 echo 'CT_SAVE_TARBALLS=y' >> build/.config
 case "${TARGET}" in
-    or1k-*|microblaze*|microblazeel*)
+    or1k-*|microblaze*|mips*)
         sed -i 's/^CT_LINKER_MOLD=y/# CT_LINKER_MOLD is not set/' build/.config
         echo "Disabled mold for ${TARGET} (unsupported arch)"
         ;;
@@ -90,4 +92,4 @@ popd
 sudo mv /opt/x-tools/"${TARGET}" .
 sudo chown -R root:root "${TARGET}"
 env XZ_OPT="-T0" sudo tar -cJvf "${TARGET}".tar.xz "${TARGET}"
-sudo sha256sum "${TARGET}".tar.xz | awk '{ print $1 }' > "${TARGET}".tar.xz.sha256
+sha256sum "${TARGET}".tar.xz | awk '{ print $1 }' > "${TARGET}".tar.xz.sha256
