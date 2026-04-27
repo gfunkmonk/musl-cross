@@ -16,8 +16,8 @@ if [[ ! -d "targets/${TARGET}" ]]; then
 fi
 
 # packages
-DEBIAN_FRONTEND=noninteractive sudo apt-get update
-DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends \
+sudo apt-get update
+sudo apt-get install -y --no-install-recommends \
   automake \
   bison \
   bzip2 \
@@ -73,8 +73,6 @@ rm -rf build
 mkdir -p build
 cp targets/"${TARGET}"/config build/.config
 # Configure tarballs directory for download caching
-sudo mkdir -p /mnt/tarballs
-sudo chown -R "$(id -u):$(id -g)" /mnt/tarballs
 echo 'CT_LOCAL_TARBALLS_DIR="/mnt/tarballs"' >> build/.config
 echo 'CT_SAVE_TARBALLS=y' >> build/.config
 case "${TARGET}" in
