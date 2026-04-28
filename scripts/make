@@ -76,7 +76,7 @@ cp targets/"${TARGET}"/config build/.config
 echo 'CT_LOCAL_TARBALLS_DIR="/mnt/tarballs"' >> build/.config
 echo 'CT_SAVE_TARBALLS=y' >> build/.config
 case "${TARGET}" in
-    or1k-*|microblaze*|microblazeel*)
+    or1k-*|microblaze*|mips*)
         sed -i 's/^CT_LINKER_MOLD=y/# CT_LINKER_MOLD is not set/' build/.config
         echo "Disabled mold for ${TARGET} (unsupported arch)"
         ;;
