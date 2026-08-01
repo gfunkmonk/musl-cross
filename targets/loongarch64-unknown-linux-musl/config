@@ -17,3 +17,6 @@ CT_LINKER_MOLD=y
 CT_GCC_V_16=y
 CT_BINUTILS_V_2_46=y
 # CT_SHOW_CT_VERSION is not set yet
+CT_BINUTILS_EXTRA_CONFIG_ARRAY="--enable-targets=loongarch32,loongarch64"
+CT_CC_GCC_CORE_EXTRA_CONFIG_ARRAY="--enable-targets=loongarch32,loongarch64"
+CT_CC_GCC_EXTRA_CONFIG_ARRAY="--enable-targets=loongarch32,loongarch64"
