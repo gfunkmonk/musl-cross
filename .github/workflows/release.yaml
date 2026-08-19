@@ -42,7 +42,6 @@ jobs:
     runs-on: ubuntu-26.04
     strategy:
       fail-fast: false
-      max-parallel: 6
       matrix:
         target:
           - aarch64-unknown-linux-musl
@@ -163,7 +162,7 @@ jobs:
       - name: Build
         uses: nick-fields/retry@v3
         with:
-          timeout_minutes: 40
+          timeout_minutes: 60
           max_attempts: 2
           command: |
             umask 0022
