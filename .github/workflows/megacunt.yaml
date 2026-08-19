@@ -682,7 +682,7 @@ jobs:
       - build_ppc
       - build_misc
     if: |
-      !cancelled() && github.event.inputs.make_release == 'true'
+      success() && github.event.inputs.make_release == 'true'
     permissions:
       contents: write
     steps:
