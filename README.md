@@ -1,46 +1,44 @@
-# musl-cross
+# $\huge{\textsf{\color{#C53AC7}{musl-cross}}}$ 
 
-This is a simple, lightweight project for making cross-compilation toolchain with musl libc.
+$\normalsize{\textbf{\color{#5BA6E9}{This is a simple, lightweight project for making cross-compilation toolchain with musl libc.}}}$
 
-## Supported targets
-
-| Target                           | Kernel | Binutils | GCC    | Musl  | Mold   |
-|----------------------------------|--------|----------|--------|-------|--------|
-| aarch64-unknown-linux-musl       | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| aarch64_be-unknown-linux-musl    | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| arm-unknown-linux-musleabi       | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| arm-unknown-linux-musleabihf     | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| armv5-unknown-linux-musleabi     | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| armv6-unknown-linux-musleabi     | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| armv6-unknown-linux-musleabihf   | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| armv7-unknown-linux-musleabi     | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| armv7-unknown-linux-musleabihf   | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| i386-unknown-linux-musl          | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| i486-unknown-linux-musl          | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| i586-unknown-linux-musl          | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| i686-unknown-linux-musl          | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| loongarch64-unknown-linux-musl   | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| m68k-unknown-linux-musl          | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| microblaze-xilinx-linux-musl     | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 |   N/A  |
-| microblazeel-xilinx-linux-musl   | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 |   N/A  |
-| mips-unknown-linux-musl          | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 |   N/A  |
-| mips-unknown-linux-muslsf        | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 |   N/A  |
-| mips64-unknown-linux-musl        | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 |   N/A  |
-| mips64el-unknown-linux-musl      | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 |   N/A  |
-| mipsel-unknown-linux-musl        | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 |   N/A  |
-| mipsel-unknown-linux-muslsf      | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 |   N/A  |
-| or1k-unknown-linux-musl          | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 |   N/A  |
-| powerpc-unknown-linux-musl       | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| powerpc-unknown-linux-muslsf     | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| powerpc64-unknown-linux-musl     | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| powerpc64le-unknown-linux-musl   | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| powerpcle-unknown-linux-musl     | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| powerpcle-unknown-linux-muslsf   | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| riscv32-unknown-linux-musl       | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| riscv64-unknown-linux-musl       | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| s390x-ibm-linux-musl             | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| sh4-multilib-linux-musl          | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
-| x86_64-unknown-linux-musl        | 6.18.41   | 2.47  | 16.2.0 | 1.2.6 | 2.42.0 |
+| $\large{\textbf{\color{#FA0C52}{Target}}}$                           | $\large{\textbf{\color{#77D582}{Kernel}}}$  | $\large{\textbf{\color{#FEFADC}{Binutils}}}$ |   $\large{\textbf{\color{#B3BAE1}{GCC}}}$  | $\large{\textbf{\color{#F9E772}{uClibc-ng}}}$ |  $\large{\textbf{\color{#06E9F2}{Mold}}}$  |
+|--------------------------------|------------|--------------|---------|----------|----------|
+| aarch64-unknown-linux-musl     |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| aarch64_be-unknown-linux-musl  |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| arm-unknown-linux-musleabi     |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| arm-unknown-linux-musleabihf   |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| armv5-unknown-linux-musleabi   |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| armv6-unknown-linux-musleabi   |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| armv6-unknown-linux-musleabihf |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| armv7-unknown-linux-musleabi   |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| armv7-unknown-linux-musleabihf |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| i386-unknown-linux-musl        |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| i486-unknown-linux-musl        |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| i586-unknown-linux-musl        |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| i686-unknown-linux-musl        |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| loongarch64-unknown-linux-musl |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| m68k-unknown-linux-musl        |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| microblaze-xilinx-linux-musl   |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |    N/A   |
+| microblazeel-xilinx-linux-musl |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |    N/A   |
+| mips-unknown-linux-musl        |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |    N/A   |
+| mips-unknown-linux-muslsf      |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |    N/A   |
+| mips64-unknown-linux-musl      |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |    N/A   |
+| mips64el-unknown-linux-musl    |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |    N/A   |
+| mipsel-unknown-linux-musl      |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |    N/A   |
+| mipsel-unknown-linux-muslsf    |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |    N/A   |
+| or1k-unknown-linux-musl        |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |    N/A   |
+| powerpc-unknown-linux-musl     |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| powerpc-unknown-linux-muslsf   |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| powerpc64-unknown-linux-musl   |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| powerpc64le-unknown-linux-musl |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| powerpcle-unknown-linux-musl   |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| powerpcle-unknown-linux-muslsf |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| riscv32-unknown-linux-musl     |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| riscv64-unknown-linux-musl     |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| s390x-ibm-linux-musl           |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| sh4-multilib-linux-musl        |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
+| x86_64-unknown-linux-musl      |   6.18.41  |     2.47     |  16.2.0 |   1.2.6  |  2.42.0  |
 
 ## How to use
 
