@@ -3,6 +3,8 @@
 <img width="600" height="231" alt="musl-libc-logo" src="https://github.com/user-attachments/assets/ec691675-734e-4692-a29a-d5d9709bd5f2" />
 </center>
 
+[![Release](https://github.com/gfunkmonk/musl-cross/actions/workflows/release.yaml/badge.svg)](https://github.com/gfunkmonk/musl-cross/actions/workflows/release.yaml)
+
 $\normalsize{\textbf{\color{#5BA6E9}{This is a simple, lightweight project for making cross-compilation toolchain with musl libc.}}}$
 
 | $\large{\textbf{\color{#FA0C52}{Target}}}$                           | $\large{\textbf{\color{#77D582}{Kernel}}}$  | $\large{\textbf{\color{#FEFADC}{Binutils}}}$ |   $\large{\textbf{\color{#B3BAE1}{GCC}}}$  | $\large{\textbf{\color{#F9E772}{uClibc-ng}}}$ |  $\large{\textbf{\color{#06E9F2}{Mold}}}$  |
